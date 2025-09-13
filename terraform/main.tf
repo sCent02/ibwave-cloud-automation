@@ -11,3 +11,13 @@ resource "aws_instance" "ibwave" {
     Name = "ibwave-simulation"
   }
 }
+
+# S3 Bucket for Project Input/Output
+resource "aws_s3_bucket" "ibwave_bucket" {
+  bucket = "ibwave-simulation-projects"
+  acl    = "private"
+
+  tags = {
+    Name = "ibwave-s3-storage"
+  }
+}
