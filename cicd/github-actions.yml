@@ -1,0 +1,23 @@
+name: Run iBwave Simulation
+
+on:
+  workflow_dispatch:
+
+jobs:
+  simulate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v3
+
+      - name: Start EC2 Instance
+        run: |
+          aws ec2 start-instances --instance-ids i-xxxxxxxxxxxxx --region ap-southeast-1
+
+      - name: Upload RF Project to S3
+        run: |
+          aws s3 cp ./sample_project.ibw s3://ibwave-simulations/
+
+      - name: Stop EC2 Instance
+        run: |
+          aws ec2 stop-instances --instance-ids i-xxxxxxxxxxxxx --region ap-southeast-1
